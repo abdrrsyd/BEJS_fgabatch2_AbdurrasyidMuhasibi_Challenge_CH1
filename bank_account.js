@@ -28,6 +28,10 @@ function reduceBalance() {
   }
 }
 
+function checkBalance() {
+  window.alert(`Your balance is: ${balance}`);
+}
+
 function menu() {
   let choice;
 
