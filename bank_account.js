@@ -1,30 +1,30 @@
 let balance = 0;
 
-function addBalance() {
-  let amount = parseFloat(
-    window.prompt("Enter the amount of balance you want to add:")
-  );
+function isValidAmount(amount) {
+  return !isNaN(amount) && amount > 0;
+}
 
-  if (!isNaN(amount) && amount > 0) {
+function deposit() {
+  const amount = parseFloat(window.prompt("Enter the amount to deposit:"));
+
+  if (isValidAmount(amount)) {
     balance += amount;
     window.alert(`Your new balance is: ${balance}`);
   } else {
-    window.alert("The amount entered is invalid. Please try again.");
+    window.alert("The amount entered is invalid.");
   }
 }
 
-function reduceBalance() {
-  let amount = parseFloat(
-    window.prompt("Enter the amount of balance you want to reduce:")
-  );
+function withdraw() {
+  const amount = parseFloat(window.prompt("Enter the amount to withdraw:"));
 
-  if (!isNaN(amount) && amount > 0 && amount <= balance) {
+  if (isValidAmount(amount) && amount <= balance) {
     balance -= amount;
     window.alert(`Your new balance is: ${balance}`);
   } else if (amount > balance) {
-    window.alert("Balance is not enough to reduce the amount.");
+    window.alert("Insufficient balance.");
   } else {
-    window.alert("The amount entered is invalid. Please try again.");
+    window.alert("The amount entered is invalid.");
   }
 }
 
@@ -32,28 +32,35 @@ function checkBalance() {
   window.alert(`Your balance is: ${balance}`);
 }
 
+function handleUserChoice(choice) {
+  switch (choice) {
+    case "1":
+      deposit();
+      break;
+    case "2":
+      withdraw();
+      break;
+    case "3":
+      checkBalance();
+      break;
+    case "4":
+      window.alert("Thank you for using the banking app!");
+      break;
+    default:
+      window.alert("Invalid selection. Please try again.");
+  }
+}
+
 function menu() {
   let choice;
 
   do {
     choice = window.prompt(
-      "Select action:\n1. Add Balance\n2. Decrease Balance\n3. Exit"
+      "Select action:\n1. Deposit\n2. Withdraw\n3. Check Balance\n4. Exit"
     );
 
-    switch (choice) {
-      case "1":
-        addBalance();
-        break;
-      case "2":
-        reduceBalance();
-        break;
-      case "3":
-        window.alert("Thank you for using the banking app!");
-        break;
-      default:
-        window.alert("Invalid selection. Please try again.");
-    }
-  } while (choice !== "3");
+    handleUserChoice(choice);
+  } while (choice !== "4");
 }
 
-menu();
+document.getElementById("startApp").addEventListener("click", menu);
