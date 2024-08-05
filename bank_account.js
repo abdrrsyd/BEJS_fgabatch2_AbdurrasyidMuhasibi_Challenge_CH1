@@ -27,3 +27,29 @@ function reduceBalance() {
     window.alert("The amount entered is invalid. Please try again.");
   }
 }
+
+function menu() {
+  let choice;
+
+  do {
+    choice = window.prompt(
+      "Select action:\n1. Add Balance\n2. Decrease Balance\n3. Exit"
+    );
+
+    switch (choice) {
+      case "1":
+        addBalance();
+        break;
+      case "2":
+        reduceBalance();
+        break;
+      case "3":
+        window.alert("Thank you for using the banking app!");
+        break;
+      default:
+        window.alert("Invalid selection. Please try again.");
+    }
+  } while (choice !== "3");
+}
+
+menu();
